@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bewirtungsnachweis-Generator</title>
+        <link rel="stylesheet" href="/static/pico.min.css">
+    </head>
+    <body>
+        <main class="container">
+        <h1>Bewirtungsnachweis-Generator</h1>
+        <form action="/submit_form">
+            <div class="grid">
+                <label for="catering_date">
+                    Bewirtungsdatum
+                    <input type="date", id="catering_date", name="catering_date", value="{{ catering_date }}">
+                </label>
+    
+                <label for="catering_reason">
+                    Bewirtungsgrund
+                    <input type="text", id="catering_reason", name="catering_reason", value="{{ catering_reason }}">
+                </label>
+            </div>
+            
+
+            <label for="catering_location_1">Adresse 1</label>
+            <input type="text", id="catering_location_1", name="catering_location_1", value="{{ catering_location_1 }}">
+            <label for="catering_location_2">Adresse 2</label>
+            <input type="text", id="catering_location_2", name="catering_location_2", value="{{ catering_location_2 }}">
+            <label for="catering_location_3">Adresse 3</label>
+            <input type="text", id="catering_location_3", name="catering_location_3", value="{{ catering_location_3 }}">
+
+            
+            <div class="grid">
+                <label for="catering_kostenstelle">
+                    Kostenstelle
+                    <input type="text", id="catering_kostenstelle", name="catering_kostenstelle", value="{{ catering_kostenstelle }}">
+                </label>
+
+                <label for="catering_expense">
+                    Rechnungsbetrag
+                    <input type="number", id="catering_expense", name="catering_expense", value="{{ catering_expense }}">
+                </label>
+            </div>
+
+            <fieldset>
+                <legend>Bewirtungstyp</legend>
+                <label for="catering_type_restaurant">
+                    Gaststätte
+                    <input type="radio", id="catering_type_restaurant", name="catering_type", value="0" {% if catering_type_restaurant %}, checked="checked" {% endif %}>
+                </label>
+                <label for="catering_type_other">
+                    Anderes
+                    <input type="radio", id="catering_type_other", name="catering_type", value="1" {% if catering_type_other %}, checked="checked" {% endif %}>
+                </label>
+                
+            </fieldset>
+
+            <div class="grid">
+                <label for="catering_hosts">
+                    Gastgeber
+                    <textarea id="catering_hosts", name="catering_hosts", value="{{ catering_hosts }}"></textarea>
+                </label>
+                <label for="catering_guests">
+                    Gäste
+                    <textarea id="catering_guests", name="catering_guests", value="{{ catering_guests }}"></textarea>
+                </label>
+            </div>
+
+            
+
+            
+
+            <input type="submit", value="PDF Generieren">
+        </form>
+        </main>
+    </body>
+</html>
