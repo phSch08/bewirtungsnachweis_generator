@@ -1,16 +1,19 @@
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, url_for
 from werkzeug.middleware.proxy_fix import ProxyFix
 from datetime import date
 from generator import generate_pdf
+
+base_url = "/bewirtung"
 
 app = Flask(__name__)
 app.wsgi_app = ProxyFix(
     app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
 )
 
-@app.route("/")
+@app.route(base_url + "/")
 def index():
     return render_template('index.html',
+        css_file = base_url + url_for('static', filename='pico.min.css'),
         catering_date=date.today().isoformat(),
         catering_location_1 = 'Wiese hinter dem HPI Hauptgebäude',
         catering_location_2 = 'Prof.-Dr.-Helmert-Str. 2-3',
@@ -24,7 +27,7 @@ def index():
         catering_type_other = True
     )
 
-@app.route("/submit_form", methods=['GET'])
+@app.route(base_url + "/submit_form/", methods=['GET'])
 def submit_form():
     pdf = generate_pdf(
         date.fromisoformat(request.args.get("catering_date")).strftime("%d.%m.%y"),
